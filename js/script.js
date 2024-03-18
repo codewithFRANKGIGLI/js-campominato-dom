@@ -1,4 +1,14 @@
 // Consegna
+// Copiamo la griglia fatta ieri nella nuova repo e aggiungiamo la logica del gioco (attenzione: non bisogna copiare tutta la cartella dell'esercizio ma solo l'index.html, e le cartelle js/ css/ e /img con i relativi script e fogli di stile, per evitare problemi con l'inizializzazione di git).
+// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+// Attenzione: nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
+// In seguito l'utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina. 
+// Altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
+// La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non sono bombe).
+// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+
+
+////////////////////// COPIATO DA REPO PRECEDENTE //////////////////////
 // L'utente clicca su un bottone che genererà una griglia di gioco quadrata.
 // creo l'evento in ascolto del click per rimuovere d-none da grid:
 const mainGrid = document.querySelector('#grid');
@@ -14,7 +24,7 @@ function createNewGame() {
     const level = document.querySelector('#level').value;
     let numberOfSquares;
     let numberOfCellsPerRow;
-        if (level === 'easy') {
+        if(level === 'easy') {
             numberOfSquares = 100;
             numberOfCellsPerRow = 10;
         } else if(level === 'normal') {
@@ -24,16 +34,14 @@ function createNewGame() {
             numberOfSquares = 49;
             numberOfCellsPerRow = 7;
         }
-        console.log(numberOfSquares, numberOfCellsPerRow);
+        // console.log(numberOfSquares, numberOfCellsPerRow);
     for(let i = 1; i <= numberOfSquares; i++) {
         const thisNumber = i;
 
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
-        square.addEventListener('click', function() {
+        square.addEventListener('click', function() {   
             this.classList.add('my-event-bg');
-            setTimeout(function() {
-                alert(`Hai cliccato:  ${thisNumber}`);
-            }, 0);
+            
         });
         mainGrid.append(square);
     }

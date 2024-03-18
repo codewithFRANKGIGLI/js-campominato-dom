@@ -31,3 +31,7 @@ img {
 .my-event-bg {
     background-color: lightskyblue;
 }
+
+.my-gameover-bg {
+    background-color: red;
+}
