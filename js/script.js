@@ -15,6 +15,29 @@ const mainGrid = document.querySelector('#grid');
 const playBtn = document.querySelector('#playBtn');
 playBtn.addEventListener('click', createNewGame);
 
+// Creo un array vuoto con 16 numeri random che rappresentano le bombe:
+
+// Scrivere una funzione che restituisce 
+// un array di 16 numeri random
+// compresi tra 1 e 100
+// L'array non dovrà contenere duplicati
+const bombsArray = generateRandomArray(16, 1, 100);
+function generateRandomArray(arrayLength, numMin, numMax) {
+    const randomNumbersArray = [];
+    while(randomNumbersArray.length < arrayLength) {
+        const randNumber = getRndInteger(numMin, numMax);
+        if(!randomNumbersArray.includes(randNumber)) {
+            randomNumbersArray.push(randNumber);
+        }
+    }
+    return randomNumbersArray;
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+
+
 // Ogni cella ha un numero progressivo, da 1 a 100.
 // Ci saranno quindi 10 caselle per ognuna delle 10 righe.
 // per 100 volte creare un quadratino e ogni quadratino
@@ -41,7 +64,6 @@ function createNewGame() {
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
         square.addEventListener('click', function() {   
             this.classList.add('my-event-bg');
-            
         });
         mainGrid.append(square);
     }

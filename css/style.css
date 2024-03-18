@@ -27,6 +27,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .my-event-bg {
     background-color: lightskyblue;
