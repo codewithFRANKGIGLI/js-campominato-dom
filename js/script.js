@@ -21,21 +21,21 @@ playBtn.addEventListener('click', createNewGame);
 // un array di 16 numeri random
 // compresi tra 1 e 100
 // L'array non dovrà contenere duplicati
-const bombsArray = generateRandomArray(16, 1, 100);
-function generateRandomArray(arrayLength, numMin, numMax) {
-    const randomNumbersArray = [];
-    while(randomNumbersArray.length < arrayLength) {
-        const randNumber = getRndInteger(numMin, numMax);
-        if(!randomNumbersArray.includes(randNumber)) {
-            randomNumbersArray.push(randNumber);
-        }
-    }
-    return randomNumbersArray;
-}
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
-console.log(bombsArray);
+// const bombsArray = generateRandomArray(16, 1, 100);
+// function generateRandomArray(arrayLength, numMin, numMax) {
+//     const randomNumbersArray = [];
+//     while(randomNumbersArray.length < arrayLength) {
+//         const randNumber = getRndInteger(numMin, numMax);
+//         if(!randomNumbersArray.includes(randNumber)) {
+//             randomNumbersArray.push(randNumber);
+//         }
+//     }
+//     return randomNumbersArray;
+// }
+// function getRndInteger(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1) ) + min;
+// }
+// console.log(bombsArray);
 
 
 // Ogni cella ha un numero progressivo, da 1 a 100.
@@ -50,14 +50,16 @@ function createNewGame() {
     let counterClick = 0;
         if(level === 'easy') {
             numberOfSquares = 100;
-            numberOfCellsPerRow = 10;
+            numberOfCellsPerRow = 10;   
         } else if(level === 'normal') {
             numberOfSquares = 81;
             numberOfCellsPerRow = 9;
         } else if(level === 'hard') {
             numberOfSquares = 49;
-            numberOfCellsPerRow = 7;
+            numberOfCellsPerRow = 7;    
         }
+        const bombsArray = generateRandomArray(16, 1, numberOfSquares);
+        console.log(bombsArray);
         // console.log(numberOfSquares, numberOfCellsPerRow);
     for(let i = 1; i <= numberOfSquares; i++) {
         const thisNumber = i;
@@ -65,8 +67,10 @@ function createNewGame() {
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
         square.addEventListener('click', function() {   
             if(bombsArray.includes(parseInt(this.innerHTML))) {
-                alert('Bomba - GameOver!');
+                alert('Hai perso! Il tuo punteggio è: '+ counterClick +'. Una bomba è in questa cella, Ricomincia!');
                 this.classList.add('my-gameover-bg');
+                mainGrid.classList.add('d-none');
+                window.location.reload();   // ricarico pagina se ho perso
             } else {
                 this.classList.add('my-event-bg');
                 counterClick++;
@@ -94,4 +98,20 @@ function generateSquare(number, cellsPerRow) {
     newSquare.style.height = `calc(100% / ${cellsPerRow})`;
     
     return newSquare;
+}
+
+
+// FUNCTIONS
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+function generateRandomArray(arrayLength, numMin, numMax) {
+    const randomNumbersArray = [];
+    while(randomNumbersArray.length < arrayLength) {
+        const randNumber = getRndInteger(numMin, numMax);
+        if(!randomNumbersArray.includes(randNumber)) {
+            randomNumbersArray.push(randNumber);
+        }
+    }
+    return randomNumbersArray;
 }
