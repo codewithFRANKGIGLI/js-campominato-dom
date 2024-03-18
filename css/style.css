@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 4rem;
+}
+
+#grid {
+    width: 500px;
+    height: 500px;
+    background-color: pink;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.square {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+    background-color: lightsalmon;
+    border: 2px solid black;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my-event-bg {
+    background-color: lightskyblue;
+}
