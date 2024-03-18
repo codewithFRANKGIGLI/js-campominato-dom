@@ -47,6 +47,7 @@ function createNewGame() {
     const level = document.querySelector('#level').value;
     let numberOfSquares;
     let numberOfCellsPerRow;
+    let counterClick = 0;
         if(level === 'easy') {
             numberOfSquares = 100;
             numberOfCellsPerRow = 10;
@@ -66,9 +67,16 @@ function createNewGame() {
             if(bombsArray.includes(parseInt(this.innerHTML))) {
                 alert('Bomba - GameOver!');
                 this.classList.add('my-gameover-bg');
+            } else {
+                this.classList.add('my-event-bg');
+                counterClick++;
             }
-            this.classList.add('my-event-bg');
-            console.log(this.innerHTML);
+            // console.log(this.innerHTML);
+            console.log(counterClick);
+            console.log(numberOfSquares);
+            if(counterClick === numberOfSquares - 16) {
+                alert('Hai Vinto!')
+            }
         });
         mainGrid.append(square);
     }
