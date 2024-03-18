@@ -35,7 +35,7 @@ function generateRandomArray(arrayLength, numMin, numMax) {
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-
+console.log(bombsArray);
 
 
 // Ogni cella ha un numero progressivo, da 1 a 100.
@@ -63,11 +63,15 @@ function createNewGame() {
 
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
         square.addEventListener('click', function() {   
+            if(bombsArray.includes(parseInt(this.innerHTML))) {
+                alert('Bomba - GameOver!');
+                this.classList.add('my-gameover-bg');
+            }
             this.classList.add('my-event-bg');
+            console.log(this.innerHTML);
         });
         mainGrid.append(square);
     }
-
 }
 
 // Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata.
@@ -80,8 +84,6 @@ function generateSquare(number, cellsPerRow) {
     newSquare.innerHTML = number; 
     newSquare.style.width = `calc(100% / ${cellsPerRow})`;
     newSquare.style.height = `calc(100% / ${cellsPerRow})`;
-
-    
     
     return newSquare;
 }
