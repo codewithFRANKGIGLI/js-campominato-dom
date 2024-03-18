@@ -67,9 +67,11 @@ function createNewGame() {
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
         square.addEventListener('click', function() {   
             if(bombsArray.includes(parseInt(this.innerHTML))) {
-                alert('Hai perso! Il tuo punteggio è: '+ counterClick +'. Una bomba è in questa cella, Ricomincia!');
                 this.classList.add('my-gameover-bg');
-                mainGrid.classList.add('d-none');
+                setTimeout(function() {
+                    mainGrid.classList.add('d-none');
+                    alert('Hai perso! Il tuo punteggio è: '+ counterClick +'. Una bomba è in questa cella, Ricomincia!');
+                }, 0)
                 window.location.reload();   // ricarico pagina se ho perso
             } else {
                 this.classList.add('my-event-bg');
