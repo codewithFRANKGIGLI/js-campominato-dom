@@ -44,6 +44,8 @@ playBtn.addEventListener('click', createNewGame);
 // lo aggiungo a grid
 function createNewGame() {
     mainGrid.innerHTML = '';
+    // se voglio cambiare il numero di bombe qui c'è la variabile da modificare
+    const numberOfBombs = 16;
     const level = document.querySelector('#level').value;
     let numberOfSquares;
     let numberOfCellsPerRow;
@@ -58,30 +60,36 @@ function createNewGame() {
             numberOfSquares = 49;
             numberOfCellsPerRow = 7;    
         }
-        const bombsArray = generateRandomArray(16, 1, numberOfSquares);
+        const bombsArray = generateRandomArray(numberOfBombs, 1, numberOfSquares);
         console.log(bombsArray);
         // console.log(numberOfSquares, numberOfCellsPerRow);
+    let isGameOver = false;
     for(let i = 1; i <= numberOfSquares; i++) {
         const thisNumber = i;
 
         const square = generateSquare(thisNumber, numberOfCellsPerRow);    // chiamo la funzione
         square.addEventListener('click', function() {   
-            if(bombsArray.includes(parseInt(this.innerHTML))) {
-                this.classList.add('my-gameover-bg');
-                setTimeout(function() {
-                    mainGrid.classList.add('d-none');
-                    alert('Hai perso! Il tuo punteggio è: '+ counterClick +'. Una bomba è in questa cella, Ricomincia!');
-                }, 0)
-                window.location.reload();   // ricarico pagina se ho perso
-            } else {
-                this.classList.add('my-event-bg');
-                counterClick++;
-            }
-            // console.log(this.innerHTML);
-            console.log(counterClick);
-            console.log(numberOfSquares);
-            if(counterClick === numberOfSquares - 16) {
-                alert('Hai Vinto!')
+            if(!isGameOver) {
+                
+                if(bombsArray.includes(parseInt(this.innerHTML))) {
+                    this.classList.add('my-gameover-bg');
+                    setTimeout(function() {
+                        mainGrid.classList.add('d-none');
+                        alert('Hai perso! Il tuo punteggio è: '+ counterClick +'. Una bomba è in questa cella, Ricomincia!');
+                    }, 0)
+                    window.location.reload(); // ricarico pagina se ho perso
+                    isGameOver = true;  
+                } else {
+                    this.classList.add('my-event-bg');
+                    this.style.pointerEvents='none'
+                    counterClick++;
+                }
+                // console.log(this.innerHTML);
+                console.log(counterClick);
+                console.log(numberOfSquares);
+                if(counterClick === numberOfSquares - 16) {
+                    alert('Hai Vinto!')
+                }
             }
         });
         mainGrid.append(square);
